@@ -5178,6 +5178,8 @@ export const deOverrides = {
       authorized: server => `${server} autorisiert`,
       failed: server => `Einrichtung für ${server} fehlgeschlagen`,
       toolCount: count => (count === 1 ? '1 Tool' : `${count} Tools`),
+      launchCommand: target => `Führt aus: ${target}`,
+      launchRemote: target => `Verbindet mit: ${target}`,
       envRequired: 'Füllen Sie zuerst die erforderlichen Anmeldedaten aus',
       sendFailed: 'MCP-Einrichtungsantwort konnte nicht gesendet werden',
       reloadFailed:
