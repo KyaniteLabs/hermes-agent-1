@@ -4060,6 +4060,9 @@ export interface Translations extends NoticeTranslations {
       toolCount: (count: number) => string
       launchCommand: (target: string) => string
       launchRemote: (target: string) => string
+      /** The env var names a stdio server adds (comma-joined); values never reach the card. */
+      launchEnv: (keys: string) => string
+      launchCwd: (dir: string) => string
       envRequired: string
       sendFailed: string
       reloadFailed: string
