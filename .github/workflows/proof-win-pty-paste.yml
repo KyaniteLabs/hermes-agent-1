@@ -1,0 +1,45 @@
+name: PROOF win-pty paste flake (temporary, never merges)
+on:
+  push:
+    branches: ['proof/win-pty-paste-flake']
+permissions:
+  contents: read
+jobs:
+  ab:
+    name: ${{ matrix.leg }} ${{ matrix.load }}
+    runs-on: windows-latest-32-arm-core
+    timeout-minutes: 45
+    strategy:
+      fail-fast: false
+      matrix:
+        leg: [base, head]
+        load: [idle, loaded]
+    steps:
+      - uses: useblacksmith/checkout@25227e61ff9dafe400e22fa487b673eac4e4409a  # v1
+        with:
+          fetch-depth: 0
+      - name: Set up native ARM64 build dependencies
+        timeout-minutes: 20
+        uses: ./.github/actions/setup-windows-build-deps
+      - name: Set up locked Python and test dependencies
+        id: pm
+        timeout-minutes: 25
+        uses: ./.github/actions/setup-pm
+        with:
+          packages: 'git,ripgrep'
+          extras: '["all"]'
+          test-environment: 'true'
+          prune-python-cache: true
+      - name: Base leg uses main's test file
+        if: matrix.leg == 'base'
+        timeout-minutes: 2
+        shell: bash
+        run: git show origin/main:tests/hermes_cli/test_win_pty_bridge.py > tests/hermes_cli/test_win_pty_bridge.py && git diff --stat
+      - name: Run the paste test 8x
+        timeout-minutes: 15
+        shell: bash
+        env:
+          PROOF_LOAD: ${{ matrix.load }}
+          PROOF_LEG: ${{ matrix.leg }}
+          PROOF_PY: ${{ steps.pm.outputs.python-path }}
+        run: '"$PROOF_PY" scripts/ci/_proof/paste_ab.py'
