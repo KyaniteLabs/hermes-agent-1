@@ -42,4 +42,4 @@ jobs:
           PROOF_LOAD: ${{ matrix.load }}
           PROOF_LEG: ${{ matrix.leg }}
           PROOF_PY: ${{ steps.pm.outputs.python-path }}
-        run: '"$PROOF_PY" scripts/ci/_proof/paste_ab.py'
+        run: BASH_EXE="$(cygpath -w "$(command -v bash)")" "$PROOF_PY" scripts/ci/_proof/paste_ab.py

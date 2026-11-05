@@ -26,10 +26,9 @@ async def main():
         b.close()
 asyncio.run(main())
 '''
-    py = os.environ.get("HERMES_PROOF_PY")
     passed = failed = 0
     for i in range(8):
-        r = subprocess.run(["bash", "scripts/run_tests.sh",
+        r = subprocess.run([os.environ["BASH_EXE"], "scripts/run_tests.sh",
                             "tests/hermes_cli/test_win_pty_bridge.py", "--", "-m", "platforms and not integration",
                             "-v", "--tb=line", "-k", "lands_at_once"], capture_output=True, text=True, encoding="utf-8", errors="replace")
         rows = sorted(set(re.findall(r"test_paste_to_a_program_that_is_not_reading_lands_at_once (PASSED|FAILED)", r.stdout)))
