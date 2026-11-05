@@ -1,0 +1,18 @@
+name: epoch
+title: Epoch
+repo: https://github.com/KyaniteLabs/Epoch
+sha: __PINNED_SHA_40HEX_FROM_ENGINEERING_t_b2ea85ea__
+subdir: plugins/epoch
+version: "0.6.0"
+description: "__CEO_APPROVED_COPY_PENDING__ (Liam proposal under CEO voice approval: 'Epoch helps agents estimate work, forecast schedules, and assess delivery risk using calibrated estimates informed by past results. Runs locally; optional telemetry is off by default.')"
+maintainer: Kyanite Labs
+tier: community
+category: tools
+requires_hermes: ">=0.21.6"
+docs_url: https://github.com/KyaniteLabs/Epoch/tree/main/plugins/epoch#readme
+platforms: []
+capabilities:
+  provides_tools: []
+  provides_hooks: []
+  provides_middleware: []
+  requires_env: []
